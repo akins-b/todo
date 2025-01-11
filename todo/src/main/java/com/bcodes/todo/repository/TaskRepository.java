@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class TaskRepository {
@@ -15,15 +16,29 @@ public class TaskRepository {
     public TaskRepository(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
     }
+
+    public List<Task> findTasksByUserId(Integer userId) {
+        return jdbcClient.sql("select * from task where user_id = :user_id order by id")
+                .param("userId", userId)
+                .query(Task.class)
+                .list();
+    }
     public List<Task> findAllTasks() {
-        return jdbcClient.sql("select * from task")
+        return jdbcClient.sql("select * from task order by id")
                 .query(Task.class)
                 .list();
     }
 
+    public Optional<Task> findTaskById(Integer id){
+        return jdbcClient.sql("select * from task where id = :id")
+                .param("id", id)
+                .query(Task.class)
+                .optional();
+    }
+
     public void createTask(Task Task) {
-        var updated = jdbcClient.sql("INSERT INTO task (id, title, status) VALUES (?, ?, ?)")
-                .params(List.of(Task.id(), Task.title(), Task.status().toString()))
+        var updated = jdbcClient.sql("INSERT INTO task (title, status) VALUES (?, ?)")
+                .params(List.of(Task.title(), Task.status().toString()))
                 .update();
 
         Assert.state(updated == 1, "Failed to create task " + Task.title());

@@ -1,6 +1,7 @@
 package com.bcodes.todo.controller;
 
 import com.bcodes.todo.model.Task;
+import com.bcodes.todo.model.Status;
 import com.bcodes.todo.service.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class TaskController {
     void createTask(@RequestBody Task task){
         taskService.createTask(task);
     }
+
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")

@@ -1,6 +1,15 @@
 CREATE TABLE IF NOT EXISTS Task (
-    id INT NOT NULL,
+    id SERIAL PRIMARY KEY,
     title VARCHAR(250) NOT NULL,
     status VARCHAR(20) NOT NULL,
-    PRIMARY KEY (id)
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Task (id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS MyUser (
+    user_id SERIAL PRIMARY KEY ,
+    username VARCHAR(250) NOT NULL,
+    password VARCHAR(250) NOT NULL
 );

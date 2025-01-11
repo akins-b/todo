@@ -5,6 +5,7 @@ import com.bcodes.todo.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -16,6 +17,13 @@ public class TaskService {
 
     public List<Task> findAllTasks() {
         return taskRepository.findAllTasks();
+    }
+
+    public List<Task> findTasksByUserId(Integer userId) {
+        return taskRepository.findTasksByUserId(userId);
+    }
+    public Optional<Task> findTaskById(Integer id){
+        return taskRepository.findTaskById(id);
     }
 
     public void createTask(Task task){
