@@ -27,6 +27,9 @@ public class TaskService {
     }
 
     public void createTask(Task task){
+        if (task.userId() == null) {
+            throw new IllegalStateException("User with id " + task.userId() + " does not exist");
+        }
         taskRepository.createTask(task);
     }
 

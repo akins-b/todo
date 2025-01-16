@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Create New Task</h1>
-<form th:action="@{/view/create-task}" method="post">
+<form th:action="@{/view/create-task/{userId}(userId=${userId})}" method="post">
     <label for="title">Title:</label>
     <input type="text" id="title" name="title" required>
     <br>
@@ -20,7 +20,7 @@
     <button type="submit">Add Task</button>
 </form>
 <br>
-<a th:href="@{/view/tasks}">Back to Task List</a>
+<a th:href="@{/view/user/{userId}(userId=${userId})}">Back to Task List</a>
 
 </body>
 </html>

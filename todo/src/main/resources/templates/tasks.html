@@ -20,10 +20,10 @@
         <td th:text="${task.status}"></td>
         <td>
             <button>
-                <a th:href="@{/view/edit-task/{id}(id=${task.id})}" style="text-decoration: none; color: inherit;">Edit</a>
+                <a th:href="@{/view/edit-task/user/{userId}/task/{id}(userId=${userId}, id=${task.id})}" style="text-decoration: none; color: inherit;">Edit</a>
             </button>
             <button>
-                <a th:href="@{/view/delete-task/{id}(id=${task.id})}" style="text-decoration: none; color: inherit;">Delete</a>
+                <a th:href="@{/view/delete-task/user/{userId}/task/{id}(userId=${userId}, id=${task.id})}" style="text-decoration: none; color: inherit;">Delete</a>
             </button>
         </td>
     </tr>
@@ -31,7 +31,7 @@
 </table>
 
 <button>
-    <a th:href="@{/view/create-task}" style="text-decoration: none; color: inherit;">Add New Task</a>
+    <a th:href="@{/view/create-task/{userId}(userId=${userId})}" style="text-decoration: none; color: inherit;">Add New Task</a>
 </button>
 </body>
 </html>

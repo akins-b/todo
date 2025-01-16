@@ -31,12 +31,12 @@ public class WebSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/home", "/register/**", "/login", "/user/**").permitAll()
+                        .requestMatchers("/home", "/register/**", "/login").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/view/tasks", true)
+                        .defaultSuccessUrl("/login-success", true) // Redirect to /login-success after successful login
                         .permitAll()
                 )
                 .logout((logout) -> logout.permitAll());

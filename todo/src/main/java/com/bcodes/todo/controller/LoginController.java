@@ -2,6 +2,8 @@ package com.bcodes.todo.controller;
 
 import com.bcodes.todo.model.MyUser;
 import com.bcodes.todo.repository.MyUserRepository;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,21 @@ public class LoginController {
     @GetMapping("/login")
     public String loginForm() {
         return "login";
+    }
+
+    @GetMapping("/login-success")
+    public String loginSuccess(HttpSession session){
+        // Get the username of the currently logged-in user
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        // Find the user in the database
+        Integer userId = myUserRepository.findUserByUsername(username)
+                .orElseThrow(() -> new IllegalStateException("User not found"))
+                .userId();
+
+        session.setAttribute("userId", userId);
+        // Redirect to the user's profile page
+        return "redirect:/view/user/" + userId;
     }
 
     @GetMapping("/register")

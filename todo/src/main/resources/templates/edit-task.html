@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Edit Task</h1>
-<form th:action="@{/view/edit-task/{id}(id=${task.id})}" method="post">
+<form th:action="@{/view/edit-task/user/{userId}/task/{id}(userId=${userId}, id=${task.id})}" method="post">
     <input type="hidden" id = "id" name = "id" th:value="${task.id}" required>
     <br>
     <label for="title">Title:</label>

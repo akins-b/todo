@@ -19,7 +19,7 @@ public class TaskRepository {
 
     public List<Task> findTasksByUserId(Integer userId) {
         return jdbcClient.sql("select * from task where user_id = :user_id order by id")
-                .param("userId", userId)
+                .param("user_id", userId)
                 .query(Task.class)
                 .list();
     }
@@ -37,8 +37,8 @@ public class TaskRepository {
     }
 
     public void createTask(Task Task) {
-        var updated = jdbcClient.sql("INSERT INTO task (title, status) VALUES (?, ?)")
-                .params(List.of(Task.title(), Task.status().toString()))
+        var updated = jdbcClient.sql("INSERT INTO task (title, status, user_id) VALUES (?, ?, ?)")
+                .params(List.of(Task.title(), Task.status().toString(), Task.userId()))
                 .update();
 
         Assert.state(updated == 1, "Failed to create task " + Task.title());
